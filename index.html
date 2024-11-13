@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/style.css">
+    <title>Educação Financeira</title>
+</head>
+<body>
+    <main>
+        <section id="container">
+            <!-- <article class="cartao">
+                <div class="cartao__conteudo">
+                    <h3>Programação</h3>
+                    <div class="cartao__conteudo__pergunta">
+                        <p>O que é JavaScript?</p>
+                    </div>
+                    <div class="cartao__conteudo__resposta">
+                        <p>O JavaScript é uma linguagem de programação</p>
+                    </div>
+                </div>
+            </article> -->
+        </section>
+    </main>
+    <footer>
+        <p>Planejamento financeiro e a bolsa de valores</p>
+    </footer>
+    <script src="app.js"></script>
+    <script src="perguntas.js"></script>
+
+
+
+    
+    <!DOCTYPE html>
+    <html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Planejamento Financeiro e Ações</title>
+        <style>
+            /* Estilos internos do CSS */
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f9;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+    
+            header {
+                background-color: #333;
+                color: #fff;
+                width: 100%;
+                padding: 10px 0;
+                text-align: center;
+            }
+    
+            #planejamento, #acoes {
+                margin-top: 20px;
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0,0,0,0.1);
+                width: 100%;
+                max-width: 600px;
+            }
+    
+            label, input, button {
+                display: block;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+    
+            button {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+    
+            #resultado {
+                margin-top: 20px;
+                font-size: 18px;
+            }
+            /* Link estilizado */
+        a {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        </style>
+        <!-- Importando o Chart.js via CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Planeje suas Finanças</h1>
+        </header>
+    
+        <section id="planejamento">
+            <h2>Insira suas informações financeiras</h2>
+            <form id="formulario">
+                <label for="renda">Renda Mensal (R$):</label>
+                <input type="number" id="renda" required>
+    
+                <label for="despesas">Despesas Totais (R$):</label>
+                <input type="number" id="despesas" required>
+    
+                <label for="objetivo">Valor do Objetivo (R$):</label>
+                <input type="number" id="objetivo" required>
+    
+                <label for="meses">Quantos meses para atingir o objetivo?</label>
+                <input type="number" id="meses" required>
+    
+                <button type="submit">Calcular Planejamento</button>
+            </form>
+    
+            <div id="resultado"></div>
+        </section>
+    
+        <!-- Seção do Gráfico de Ações -->
+        <section id="acoes">
+            <h2>Melhores Ações da Atualidade</h2>
+            <canvas id="graficoAcoes" width="400" height="200"></canvas>
+        </section>
+    
+        <script>
+            // Função para calcular o planejamento financeiro
+            document.getElementById("formulario").addEventListener("submit", function(event) {
+                event.preventDefault();
+                
+                let renda = parseFloat(document.getElementById("renda").value);
+                let despesas = parseFloat(document.getElementById("despesas").value);
+                let objetivo = parseFloat(document.getElementById("objetivo").value);
+                let meses = parseInt(document.getElementById("meses").value);
+                
+                let economiaMensal = renda - despesas;
+    
+                if (economiaMensal <= 0) {
+                    document.getElementById("resultado").innerHTML = "Você não está economizando nada com as despesas atuais!";
+                } else {
+                    let mesesNecessarios = objetivo / economiaMensal;
+                    document.getElementById("resultado").innerHTML = `Com sua economia de R$${economiaMensal.toFixed(2)} por mês, você alcançará seu objetivo em aproximadamente ${mesesNecessarios.toFixed(1)} meses!`;
+                }
+            });
+    
+            // Dados fictícios das melhores ações (simulação)
+            let acoes = ['Apple', 'Tesla', 'Google', 'Amazon', 'Microsoft'];
+            let precos = [150.25, 755.10, 2800.50, 3400.60, 299.20];
+    
+            // Função para criar o gráfico de barras com os dados fictícios das ações
+            function criarGraficoAcoes() {
+                let ctx = document.getElementById('graficoAcoes').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: acoes,  // Nomes das ações
+                        datasets: [{
+                            label: 'Preço das Ações (em USD)',
+                            data: precos,  // Preços fictícios das ações
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(153, 102, 255, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(75, 192, 192, 1)',
+                                'rgba(153, 102, 255, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+    
+            // Chama a função para criar o gráfico quando a página é carregada
+            document.addEventListener("DOMContentLoaded", criarGraficoAcoes);
+        </script>
+
+
+<a href="outra_pagina.html">Avançar</a>
+
+    </body>
+    </html>
+    
+
+    

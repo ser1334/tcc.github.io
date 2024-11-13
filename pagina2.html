@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f4f4f4;
+            text-align: center;
+            padding-top: 30px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        input, button {
+            padding: 10px;
+            width: 100%;
+            color: #f4f4f4;
+            background-color: #333;
+            border: 1px solid #444;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+        canvas {
+            margin-top: 20px;
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Planejamento Financeiro</h1>
+
+    <!-- Formulário para Inserir Informações Pessoais -->
+    <div class="container">
+        <h2>Informações Pessoais</h2>
+        <input type="number" id="alimentacao" placeholder="Gastos com Alimentação" step="any">
+        <input type="number" id="transporte" placeholder="Gastos com Transporte" step="any">
+        <input type="number" id="moradia" placeholder="Gastos com Moradia" step="any">
+        <input type="number" id="lazer" placeholder="Gastos com Lazer" step="any">
+        <input type="number" id="saude" placeholder="Gastos com Saúde" step="any">
+
+        <button onclick="atualizarGraficos()">Atualizar Gráficos</button>
+    </div>
+
+    <!-- Gráfico de Distribuição de Despesas -->
+    <div class="container">
+        <h2>Distribuição de Despesas</h2>
+        <canvas id="graficoDespesas"></canvas>
+    </div>
+
+    <!-- Gráfico de Projeção de Economia -->
+    <div class="container">
+        <h2>Projeção de Economia Futura</h2>
+        <canvas id="graficoEconomia"></canvas>
+    </div>
+
+    <!-- Link de Navegação -->
+    <a href="outra_pagina.html">Voltar</a>
+
+    <script>
+        // Variáveis globais dos gráficos
+        let graficoDespesas, graficoEconomia;
+
+        // Função para atualizar os gráficos com as informações fornecidas
+        function atualizarGraficos() {
+            // Obtendo valores inseridos pelo usuário
+            const alimentacao = parseFloat(document.getElementById("alimentacao").value) || 0;
+            const transporte = parseFloat(document.getElementById("transporte").value) || 0;
+            const moradia = parseFloat(document.getElementById("moradia").value) || 0;
+            const lazer = parseFloat(document.getElementById("lazer").value) || 0;
+            const saude = parseFloat(document.getElementById("saude").value) || 0;
+            
+
+            // Atualizando o gráfico de distribuição de despesas
+            graficoDespesas.data.datasets[0].data = [alimentacao, transporte, moradia, lazer, saude];
+            graficoDespesas.update();
+
+            // Calculando a projeção de economia futura (valores fictícios para exemplo)
+            const meses = 12; // Exemplo de 12 meses
+            const valorMensal = alimentacao + transporte + moradia + lazer + saude;
+            const projeções = [];
+            let totalEconomizado = 0;
+            for (let i = 0; i < meses; i++) {
+                totalEconomizado += valorMensal * 0.1; // Supondo que 10% do total será economizado
+                projeções.push(totalEconomizado);
+            }
+
+            // Atualizando o gráfico de projeção de economia futura
+            graficoEconomia.data.datasets[0].data = projeções;
+            graficoEconomia.update();
+        }
+
+        // Gráfico de Distribuição de Despesas
+        const ctxDespesas = document.getElementById('graficoDespesas').getContext('2d');
+        graficoDespesas = new Chart(ctxDespesas, {
+            type: 'pie',
+            data: {
+                labels: ['Alimentação', 'Transporte', 'Moradia', 'Lazer', 'Saúde'],
+                datasets: [{
+                    label: 'Distribuição de Despesas',
+                    data: [0, 0, 0, 0, 0], // valores iniciais vazios
+                    backgroundColor: ['#FF5733', '#33CFFF', '#FFBD33', '#75FF33', '#8D33FF'],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
+            }
+        });
+
+        // Gráfico de Projeção de Economia Futura
+        const ctxEconomia = document.getElementById('graficoEconomia').getContext('2d');
+        graficoEconomia = new Chart(ctxEconomia, {
+            type: 'line',
+            data: {
+                labels: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'], // Meses
+                datasets: [{
+                    label: 'Projeção de Economia',
+                    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], // valores iniciais vazios
+                    borderColor: '#4CAF50',
+                    backgroundColor: 'rgba(76, 175, 80, 0.2)',
+                    borderWidth: 2
+                }]
+            }
+        });
+    </script>
+
+<a href="pagina3.html">Avançar</a> 
+
+</body>
+</html>
+
+

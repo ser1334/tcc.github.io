@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #f4f4f4;
+            text-align: center;
+            padding-top: 30px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+            background-color: #1e1e1e;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+            margin-bottom: 20px;
+        }
+        input, textarea, button {
+            padding: 10px;
+            width: 100%;
+            color: #f4f4f4;
+            background-color: #333;
+            border: 1px solid #444;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        a {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        a:hover {
+            background-color: #45a049;
+        }
+        #relatorio {
+            padding: 10px;
+            background-color: #333;
+            border-radius: 5px;
+            margin-top: 10px;
+            text-align: left;
+        }
+        #relogio {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background-color: #333;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Deixe sua Opinião!</h1>
+
+    <!-- Formulário de Opinião -->
+    <div class="container">
+        <h2>Opine Aqui</h2>
+        <textarea id="opiniao" placeholder="Deixe sua opinião sobre o site..." rows="5"></textarea>
+        <button onclick="enviarOpiniao()">Enviar Opinião</button>
+
+        <!-- Exibição da opinião -->
+        <div id="relatorio">
+            <h3>Opinião Enviada:</h3>
+            <p id="textoOpiniao">Nenhuma opinião enviada ainda.</p>
+        </div>
+    </div>
+
+    <!-- Link de Navegação -->
+    <a href="index.html">Voltar à Página Inicial</a>
+
+    <!-- Relógio e Data -->
+    <div id="relogio"></div>
+
+    <script>
+        // Função para exibir o relógio e a data no canto inferior direito
+        function atualizarRelogio() {
+            const agora = new Date();
+            const hora = String(agora.getHours()).padStart(2, '0');
+            const minuto = String(agora.getMinutes()).padStart(2, '0');
+            const segundo = String(agora.getSeconds()).padStart(2, '0');
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0'); // Mes começa de 0, então adicionamos 1
+            const ano = agora.getFullYear();
+            const dataAtual = `${dia}/${mes}/${ano}`;
+            const horaAtual = `${hora}:${minuto}:${segundo}`;
+
+            document.getElementById('relogio').textContent = `${dataAtual} ${horaAtual}`;
+        }
+
+        // Atualiza o relógio a cada segundo
+        setInterval(atualizarRelogio, 1000);
+
+        // Função para exibir a opinião do usuário
+        function enviarOpiniao() {
+            const opiniao = document.getElementById("opiniao").value;
+            if (opiniao) {
+                document.getElementById("textoOpiniao").textContent = opiniao;
+                document.getElementById("opiniao").value = ''; // Limpar o campo de opinião após envio
+            } else {
+                alert("Por favor, insira sua opinião antes de enviar.");
+            }
+        }
+
+        // Inicializar o relógio assim que a página carregar
+        atualizarRelogio();
+    </script>
+</body>
+</html>
